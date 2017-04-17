@@ -1,0 +1,30 @@
+{% load pytils_numeral %}
+{% if objects %}
+    {% for object in objects %}
+        <div class="col-xs-12 col-sm-6 form">
+            <div class="panel panel-default">
+                <a title="{{ object.get_title }}" href="{{ object.get_absolute_url }}">
+                    <div class="panel-heading">
+                        <h2>{{ object.get_title }}</h2>
+                    </div>
+                </a>
+                <div class="panel-body">
+                    {{ object.content|safe }}
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ object.get_last_modified }}
+                        </div>
+                        {% if object.get_comments_count %}
+                            <div class="col-xs-6 text-right">
+                                <div href="{{ object.get_absolute_url }}" class="label label-success">{{ object.get_comments_count }} {{ object.get_comments_count|choose_plural:"комментарий, комментария, комментариев" }} </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% cycle '' '<div class="clearfix"></div>' %}
+    {% endfor %}
+{% endif %}

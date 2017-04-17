@@ -1,0 +1,28 @@
+{% load mptt_tags %}
+
+{% if nodes %}
+    {% recursetree nodes %}
+        <li data-comment-id="{{ node.id }}" class="js-comments-element comments-element">
+            <div class="form-group">
+                <h4>{{ node.user }} | <i class="comments-date">{{ node.get_last_modified }}</i></h4>
+                <p>{{ node.message|linebreaksbr }}</p>
+            </div>
+            <div class="js-comments-children-container js-comments-children-container--{{ node.id }}">
+                {% if not node.is_leaf_node %}
+                    <ul>
+                        {{ children }}
+                    </ul>
+                    {% if node.level > 1 %}
+                        <div><button data-get-more-url="{% url 'load-comments' %}" class="btn btn-default btn-sm js-comments-more--{{ node.id }}">показать еще +</button></div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if can_post %}
+                <div class="js-comments-control-container js-comments-control-container--{{ node.id }}">
+                    <button class="btn btn-success js-comments-reply js-comments-reply--{{ node.id }}">Ответить</button>
+                </div>
+            {% endif %}
+
+        </li>
+    {% endrecursetree %}
+{% endif %}

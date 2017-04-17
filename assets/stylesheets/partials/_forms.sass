@@ -1,0 +1,40 @@
+@import "../bootstrap/variables"
+
+textarea.form-control
+  resize: vertical
+
+.form-group, .input-group-btn
+  position: relative
+  .select2-container--bootstrap
+    width: 100% !important
+
+textarea.form-control
+  resize: vertical
+
+input[type="checkbox"].form-control
+  width: $input-height-base
+
+.trackbar_placeholder
+  +opacity(0)
+  width: 1px
+  height: 1px
+  position: absolute
+
+
+.tabletasks
+  +bp-max-xs
+    display: block
+    thead, th
+      display: none
+    tr, tbody, td
+      display: block
+    tr
+      margin-bottom: 15px
+    td
+      border: none !important
+      &.tabletasks--user
+        float: left
+        width: 50%
+      &.tabletasks--price
+        float: right
+        width: 50%

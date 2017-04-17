@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+
+
+<div class="panel panel-default comments-form js-comments-form">
+    <form action="{% url 'post-comment' %}">
+        {% csrf_token %}
+        <div class="panel-heading">
+            <h4>Оставить комментарий</h4>
+            <a class="js-comments-form-cancel btn btn-warning pull-right">Отмена</a>
+        </div>
+        <div class="panel-body">
+            {% for field in form %}
+                <div class="form-group{% if field.is_hidden %} hidden{% endif %}">
+                    <label class="control-label">{{ field.label }}</label>
+                    {% if field.field.required %}
+                        {{ field|append_attr:"required:required"|add_class:"form-control" }}
+                    {% else %}
+                        {{ field|add_class:"form-control"}}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-info">Отправить</button>
+        </div>
+    </form>
+</div>
