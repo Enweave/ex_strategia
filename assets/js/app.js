@@ -3,6 +3,7 @@
 var $doc = $(document);
 
 var runComments = function($form){
+    var $body = $("html, body");
     var $last_touched_comment = undefined;
     var $form_initial_container = $('.js-comments-form-origin');
     var $root = $('.comments-root');
@@ -15,6 +16,7 @@ var runComments = function($form){
         $comments.each(function(i) {
             var $comment = $comments.eq(i);
             $comment.comment_id = $comment.data('comment-id');
+            $comment.$insert = $comment.find('.js-comments-insert-container--' + $comment.comment_id);
             $comment.$control_container = $comment.find('.js-comments-control-container--' + $comment.comment_id);
             $comment.$more = $comment.find('.js-comments-more--' + $comment.comment_id);
             $comment.$children_container = $comment.find('.js-comments-children-container--' + $comment.comment_id);
@@ -23,10 +25,11 @@ var runComments = function($form){
                 e.preventDefault();
                 if ($last_touched_comment !== $comment) {
                     $comment.$control_container.toggleClass('active', true);
-                    $comment.$control_container.append($form);
+                    $comment.$insert.append($form);
                     $form.toggleClass('active', true);
                     $last_touched_comment = $comment;
                     $form.$comment_id.val($comment.comment_id);
+                    $body.animate({scrollTop: $comment.offset().top - 30}, 200);
                 }
             });
 

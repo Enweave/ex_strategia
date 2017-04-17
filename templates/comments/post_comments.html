@@ -7,6 +7,14 @@
                 <h4>{{ node.user }} | <i class="comments-date">{{ node.get_last_modified }}</i></h4>
                 <p>{{ node.message|linebreaksbr }}</p>
             </div>
+            {% if can_post %}
+                <div class="js-comments-control-container js-comments-control-container--{{ node.id }}">
+                    <button class="btn btn-success js-comments-reply js-comments-reply--{{ node.id }}">Ответить</button>
+                </div>
+            {% endif %}
+            <div class="js-comments-insert-container--{{ node.id }}">
+
+            </div>
             <div class="js-comments-children-container js-comments-children-container--{{ node.id }}">
                 {% if not node.is_leaf_node %}
                     <ul>
@@ -17,11 +25,6 @@
                     {% endif %}
                 {% endif %}
             </div>
-            {% if can_post %}
-                <div class="js-comments-control-container js-comments-control-container--{{ node.id }}">
-                    <button class="btn btn-success js-comments-reply js-comments-reply--{{ node.id }}">Ответить</button>
-                </div>
-            {% endif %}
 
         </li>
     {% endrecursetree %}
